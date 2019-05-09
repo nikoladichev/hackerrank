@@ -7,46 +7,52 @@ import java.util.*;
  */
 public class MinimumSwaps2 {
     public static void main(String[] args) {
-        int[] test1 = new int[]{2, 3, 4, 1, 5};
-        int[] test2 = new int[]{1, 3, 5, 2, 4, 6, 7};
+
+        int[] test1 = new int[]{4, 3, 1, 2};
+        int[] test2 = new int[]{2, 3, 4, 1, 5};
+        int[] test3 = new int[]{1, 3, 5, 2, 4, 6, 7};
 
         minimumSwaps(test1); // 3
         minimumSwaps(test2); // 3
+        minimumSwaps(test3); // 3
     }
 
-    static int minimumSwaps(int[] arr) {
+    static int minimumSwaps(int[] originalArray) {
 
         int swaps = 0;
 
-        Integer[] originalArray = new Integer[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            originalArray[i] = arr[i];
-        }
+        int[] sortedArray = Arrays.copyOf(originalArray, originalArray.length);
+        Arrays.sort(sortedArray);
 
-        Integer[] sortedArray = new Integer[originalArray.length];
-        new TreeSet<>(Arrays.asList(originalArray)).toArray(sortedArray);
+        System.out.println(Arrays.toString(originalArray));
 
         for (int i = 0; i < originalArray.length; i++) {
-            if (!sortedArray[i].equals(originalArray[i])) {
+            if (sortedArray[i] != originalArray[i]) {
+                int nextVal = sortedArray[i];
+                int index = getIndex(originalArray, nextVal, i + 1);
+
                 int temp = originalArray[i];
-                for (int j = i + 1; j < originalArray.length; j++) {
-                    if (sortedArray[j].equals(temp)) {
-                        originalArray[j] = temp;
-//                        System.out.println("swap(" + i + ',' + j + ')');
-                        originalArray[i] = sortedArray[i];
+                originalArray[i] = nextVal;
+                originalArray[index] = temp;
 
-//                        System.out.println("Temp: " + Arrays.toString(originalArray));
-                        swaps++;
-
-                        break;
-                    }
-                }
+                swaps++;
             }
         }
 
         System.out.println(Arrays.toString(originalArray) + ", swaps: " + swaps);
 
         return swaps;
+    }
+
+    private static int getIndex(int[] array, int value, int startIndex) {
+
+        for (int i = startIndex; i < array.length; i++) {
+            if (array[i] == value) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
 }
