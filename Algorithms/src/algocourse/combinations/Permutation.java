@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Permutation {
 
-    static int[] arr = new int[] { 1, 2, 3 };
+    static int[] arr = new int[] { 1, 2, 5 };
 
     // v1
     static boolean[] isVisited = new boolean[arr.length];
