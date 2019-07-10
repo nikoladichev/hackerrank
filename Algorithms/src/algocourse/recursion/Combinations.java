@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Combinations {
 
     public static void main(String[] args) {
-        int[] set = new int[] {1, 2, 3, 4};
+        int[] set = new int[] {1,2,5};
         int[] vector = new int[] {0 , 0};
         genCombinations(set, vector, 0, 0);
     }
